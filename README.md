@@ -11,3 +11,8 @@ notes and code learning functional programming in Haskell
 * https://github.com/Gabriel439/post-rfc/blob/master/sotu.md
 * https://github.com/michaelochurch/summer-2015-haskell-class
 * http://www.cs.nott.ac.uk/~gmh/solutions.pdf
+* http://shuklan.com/haskell/
+* http://dev.stephendiehl.com/hask/
+* https://www.fpcomplete.com/user/mgsloan/monoids-tour
+* https://www.haskell.org/communities/05-2014/html/report.html
+* http://www.scs.stanford.edu/14sp-cs240h/slides/
