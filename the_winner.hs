@@ -7,7 +7,7 @@ type Ballot = [Party]
 count :: (Eq a) => a -> [a] -> Int
 count _ [] = 0
 count a (x:xs)
-		| a == x = 1 + count a xs
+      | a == x = 1 + count a xs
   		| otherwise = count a xs
 
 test1 = count 'a' "ababca"
@@ -15,7 +15,7 @@ test1 = count 'a' "ababca"
 --rmdups :: (Eq a) -> [a] -> [a]
 rmdups [] = []
 rmdups (x:xs)
-		| x `elem` xs = rmdups xs
+      | x `elem` xs = rmdups xs
   		| otherwise = x : rmdups xs
 
 test2 = rmdups "ababca"
@@ -34,3 +34,6 @@ frequency :: (Eq a) => [a] -> [(Int, a)]
 frequency xs = [(count x xs, x) | x <- rmdups' xs]
 
 test4 = frequency "ababca"
+
+--TODO finish
+--http://www.cs.nott.ac.uk/~gmh/fun-cwk2.pdf

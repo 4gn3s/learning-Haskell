@@ -16,3 +16,4 @@ notes and code learning functional programming in Haskell
 * https://www.fpcomplete.com/user/mgsloan/monoids-tour
 * https://www.haskell.org/communities/05-2014/html/report.html
 * http://www.scs.stanford.edu/14sp-cs240h/slides/
+* http://www.serpentine.com/wreq/tutorial.html
