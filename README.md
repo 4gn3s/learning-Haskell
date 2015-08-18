@@ -3,6 +3,7 @@ notes and code learning functional programming in Haskell
 
 ## Resources
 
+* https://github.com/bitemyapp/learnhaskell
 * https://www.cs.nott.ac.uk/~gmh/book.html
 * https://cseweb.ucsd.edu/classes/wi12/cse230-a/lectures/parsers.html
 * https://cseweb.ucsd.edu/classes/wi12/cse230-a/assignments.html
@@ -17,3 +18,6 @@ notes and code learning functional programming in Haskell
 * https://www.haskell.org/communities/05-2014/html/report.html
 * http://www.scs.stanford.edu/14sp-cs240h/slides/
 * http://www.serpentine.com/wreq/tutorial.html
+* https://wiki.haskell.org/Learning_Haskell
+* http://www.seas.upenn.edu/~cis194/spring13/lectures.html
+* https://wiki.haskell.org/Typeclassopedia
