@@ -21,3 +21,7 @@ notes and code learning functional programming in Haskell
 * https://wiki.haskell.org/Learning_Haskell
 * http://www.seas.upenn.edu/~cis194/spring13/lectures.html
 * https://wiki.haskell.org/Typeclassopedia
+* https://github.com/gibiansky/IHaskell/wiki
+* https://github.com/gibiansky/IHaskell
+* http://dev.stephendiehl.com/fun/index.html
+
