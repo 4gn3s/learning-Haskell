@@ -91,18 +91,3 @@ listparser = do char '['
 
 test7 = parse listparser "[1,2,3,4]"
 test8 = parse listparser "[1,2,3"
-
-nat :: Parser Int
-nat = do xs <- many digit
-         return (read xs)
-
-int :: Parser Int
-int = do char '-'
-         n <- nat
-         return (-n)
-       +++ nat
-
-comment :: Parser ()
-comment = do string "--"
-             many (sat (/= '\n'))
-             return ()
