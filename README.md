@@ -1,4 +1,4 @@
-# FP101-Haskell
+# Learning Haskell
 notes and code learning functional programming in Haskell
 
 ## Resources
