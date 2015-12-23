@@ -3,6 +3,7 @@ notes and code learning functional programming in Haskell
 
 ## Resources
 
+* http://yannesposito.com/Scratch/en/blog/Haskell-the-Hard-Way/
 * https://github.com/bitemyapp/learnhaskell
 * https://www.cs.nott.ac.uk/~gmh/book.html
 * https://cseweb.ucsd.edu/classes/wi12/cse230-a/lectures/parsers.html

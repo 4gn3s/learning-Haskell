@@ -12,3 +12,12 @@ resolve = do
 
 main = do
 	print resolve
+
+
+-- look at the cute syntactic sugar
+-- list comprehension!
+main' = do
+	print $ [(x, y, z) | x <- cases,
+						 y <- cases,
+	  					 z <- cases,
+						 4*x + 2*y < z]
