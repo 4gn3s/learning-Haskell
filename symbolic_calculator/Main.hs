@@ -4,7 +4,7 @@ import qualified Data.Map as M --qualified means that the namespace is accessibl
 
 import Lexer (tokenize)
 import Parser (parse)
-import Evaluator (evaluate)
+import Evaluator
 
 main :: IO()
 main = do
@@ -17,9 +17,13 @@ loop symTab = do
 	else
 		let toks = tokenize str
 		    tree = parse toks
-		    (val, symTab') = evaluate tree symTab
+		    Ev ev = evaluate tree symTab
 		in
-				do
-						print val
+				case ev of
+					Left msg -> do
+						putStrLn $ "Error: " ++ msg
+						loop symTab -- use old symTab
+					Right (v, symTab') ->	do
+						print v
 						print symTab'
 						loop symTab'
