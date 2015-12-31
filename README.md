@@ -17,7 +17,7 @@ notes and code learning functional programming in Haskell
 * https://www.fpcomplete.com/user/mgsloan/monoids-tour
 * https://cseweb.ucsd.edu/classes/wi12/cse230-a/lectures/parsers.html
 * https://wiki.haskell.org/Typeclassopedia
-* http://www.cs.nott.ac.uk/~gmh/monads
+* http://www.cs.nott.ac.uk/~gmh/monads - finished
 
 ### Courses
 * http://www.seas.upenn.edu/~cis194/spring13/lectures.html
