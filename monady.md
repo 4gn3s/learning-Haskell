@@ -13,30 +13,33 @@ Monady umożliwiają elegancką implementację stanów, mutowalności, IO i inny
 ## Wstęp matematyczny
 ### Teoria kategorii
 *Obiekt* - generalizacja zbioru.
+
 *Morfizm* - generalizacja funkcji.
-Morfizm przeprowadza jeden obiekt na inny. Np. sin przeprowadza zbiór liczb R na zbiór R. Ale można także zdefiniować funkcję jestPierwsza która przeprowadza zbiór Z na Boole, albo funkcję cena która przeprowadza zbiór produktów na zbiów liczb.
+
+Morfizm przeprowadza jeden obiekt na inny. Np. sin przeprowadza zbiór liczb R na zbiór R. Ale można także zdefiniować funkcję jestPierwsza która przeprowadza zbiór Z na Bool, albo funkcję cena która przeprowadza zbiór produktów na zbiów liczb.
 Morfizmy można składać, tzn. jeśli A -> B oraz B -> C, to A -> C.
 Ponadto dla każdego obiektu musi istnieć specjalny morfizm (identyczność), który przeprowadza ten obiekt na siebie.
+
 *Kategoria* - zbiór obiektów i morfizmów.
 
 ##### Kategorie a Haskell
 Hask to haskellowa kategoria typów i funkcji.
-Mamy skończony zbiór typów podstawowych (Bool, int) oraz nieskończony zbiór typów pochodnych (listy int, funkcje z int na bool, itd).
+Mamy skończony zbiór typów podstawowych (Bool, Int) oraz nieskończony zbiór typów pochodnych ([Int], Int -> Bool, itd).
 Typ w Hask to po prostu zbiór wartości. Np typ Char to zbiór {'a', 'b', ...}.
 Zatem w Hask typy to obiekty, a funkcje to morfizmy, funkcja mapuje jeden typ na inny (funkcje wielu parametrów można opisać w ten sposób za pomocą currying'u).
 
-** Esencją programowania jest możliwość składania programów z mniejszych części, a tych części z jeszcze mniejszych części. **
+**Esencją programowania jest możliwość składania programów z mniejszych części, a tych części z jeszcze mniejszych części.**
 
 *Funktor* to mapa z jednej kategorii do innej; funktor przeprowadza obiekty w obiekty oraz morfizmy w morfizmy. Musi przy tym zachować następujące ograniczenia:
 
-* morfizm między dwoma obiektami pierwszej kategorii musi być przemapowany na morfizm między odpowiadającymi im obiektami z drugiej kategorii. (jeśli mamy obiekt A mapowany na F(A) oraz B mapowany na F(B) i funkcję f : A -> B, to f jest mapowana na F(f) : F(A) -> F(B))
-* morfizmy nadal powinny zachować swoje zasady składania: jeśli h jest złożeniem f i g, to F(h) musi być złożeniem F(f) i F(g)
+* morfizm między dwoma obiektami pierwszej kategorii musi być przemapowany na morfizm między odpowiadającymi im obiektami z drugiej kategorii. (jeśli mamy obiekt *A* mapowany na *F(A)* oraz *B* mapowany na *F(B)* i funkcję *f : A -> B*, to *f* jest mapowana na *F(f) : F(A) -> F(B))*
+* morfizmy nadal powinny zachować swoje zasady składania: jeśli *h* jest złożeniem *f* i *g*, to *F(h)* musi być złożeniem *F(f)* i *F(g)*
 
 ##### Funktor w Hask
 Zdefiniujmy funktor w Hask, który mapuje Hask na siebie (to jest endofunktor). Obiekt w Hask to typ, więc funktor mapuje typ na typ. To znaczy, że funktor w Hask tworzy jeden typ z drugiego- czyli jest *konstruktorem typu* (type constructor). Konstruktor typu tworzy nowy typ w programie z typu, który już istniał w Hask. Np. konstruktor listy: Int jest mapowany na [Int] (mapa nie jest zdefiniowana na wartościach). Nowy typ nie jest dodawany do Hask, bo lista już tam istniała.
 Co z mapowaniem funkcji? To jest dokładnie funkcja *map* z haskella.
 
-** Najważniejsza własność programowania to możliwość ponownego wykorzystania kodu. Mamy funkcję, która działa na Int, to z użyciem map mamy też za darmo funkcję, która działa na [Int]. **
+**Najważniejsza własność programowania to możliwość ponownego wykorzystania kodu. Mamy funkcję, która działa na Int, to z użyciem map mamy też za darmo funkcję, która działa na [Int].**
 
 *Endofunktor* - funktor który przeprowadza kategorię na nią samą.
 
