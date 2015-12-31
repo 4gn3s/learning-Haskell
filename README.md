@@ -10,7 +10,8 @@ notes and code learning functional programming in Haskell
 
 * http://yannesposito.com/Scratch/en/blog/Haskell-the-Hard-Way/ - finished
 * http://blog.ezyang.com/2011/11/how-to-read-haskell/ - finished
-* https://www.fpcomplete.com/user/bartosz/basics-of-haskell?show=tutorials 
+* https://www.fpcomplete.com/user/bartosz/basics-of-haskell?show=tutorials - finished
+* http://bartoszmilewski.com/2011/01/09/monads-for-the-curious-programmer-part-1/ and parts 2,3 - finished 1,2
 * http://nbviewer.ipython.org/github/Tweety-FER/puh-ta/blob/master/Parsec.ipynb
 * https://howistart.org/posts/haskell/1
 * https://www.fpcomplete.com/user/mgsloan/monoids-tour
