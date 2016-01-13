@@ -4,6 +4,7 @@ Na postawie artykułów:
 
 * [http://bartoszmilewski.com/2011/01/09/monads-for-the-curious-programmer-part-1/](http://bartoszmilewski.com/2011/01/09/monads-for-the-curious-programmer-part-1/)
 * [http://bartoszmilewski.com/2011/03/14/monads-for-the-curious-programmer-part-2/](http://bartoszmilewski.com/2011/03/14/monads-for-the-curious-programmer-part-2/)
+* [http://bartoszmilewski.com/2011/03/17/monads-for-the-curious-programmer-part-3/](http://bartoszmilewski.com/2011/03/17/monads-for-the-curious-programmer-part-3/)
 
 ## Po co to komu
 W programowaniu funkcjnym wywołanie funkcji z takimi samymi argumentami musi zawsze zwrócić ten sam wynik. Kompilator wykrywa taką sytuację i zapamiętuje wynik za pierwszym razem, żeby skrócić czas obliczeń. Obliczenia ze stanem mogą zwrócić inny wynik podczas każdego wywołania, np. poprzez dostęp do zmiennej globalnej albo zmiennych statycznych, które mogą być dodatkowo modyfikowane wewnątrz tych obliczeń, powodując powstanie efektów ubocznych.
@@ -207,6 +208,35 @@ Bind bierze listę i kontynuację obliczeń, i tworzy nową listę. Jeśli zaapl
   ```
 
 * zdefiniować return jako unit
+
+## Stan, funkcje, efekty uboczne
+W programowaniu funkcyjnym dane nie są mutowalne, żeby nie trzeba było synchronizować dostępu do nich. Dlatego obliczenia ze stanem w programowaniu funkcyjnym wymagają podania explicite stanu. Weźmy przykład z C++:
+
+```cpp
+    int pop(){
+        auto v = glob.top(); //glob is the global vector
+        glob.pop();
+        return v;
+    }
+```
+
+W Haskellu, wyglądałoby to następująco:
+
+```haskell
+    newtype Stack = ST [Int]
+    ...
+    pop:: Stack-> (Stack, Int)
+    pop (ST lst) = (ST  (tail lst), head lst)
+```
+
+Takie funkcje, które biorą stan i zwracają stan i wynik, nazywane są w Haskellu akcjami. Są one jednak nienaturalne i niewygodne w użyciu w takiej postaci. Chcemy stworzyć coś na wyższym poziomie abstracji: będziemy pisać funkcje, które będą zwracać akcje. Takie funkcje nazywane są funkcjami monadycznymi.
+Będziemy dążyć do tego, żeby łączyć funkcje monadyczne ze sobą, i otrzymywać łączone akcje- taką akcję można wykonać na stanie i otrzymać wynik końcowy.
+
+### Monada stanu
+Konstruktor typu: zaczynamy od obliczenia ze stanem, które jest typu *a -> b*. Zmienimy go na funkcję monadyczną, która przyjmuje jako parametr *a* i zwraca rozszerzony typ oparty na *b* (który jest akcją, czyli funckcją *S -> (S, b)*).
+
+#### Kalkulator monadyczny
+Dobrym przykładem oblczenia ze stanem jest kalkulator oparty na stosie. 
 
 ## Podsumowanie
 Jest duża klasa problemów, które przeprowadzają wejście na wyjście w sposób niefunkcyjny. Część z nich można opisać jako funkcje o rozszerzonym wyjściu; rozszerzenie wyjścia można opisać jako konstruktor typu, który definiuje pierwszy komponent monady. Ponieważ obliczenia muszą być składalne, potrzebujemy metody składania rozszerzonych funkcji- to jest drugi komponent monady, bind. Musimy być w stanie tworzyć funkcje, które zwracają rozszerzony typ, i do tego potrzeba trzeciego elementu, return.
