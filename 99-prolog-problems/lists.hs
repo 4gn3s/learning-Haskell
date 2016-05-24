@@ -76,12 +76,7 @@ pack_consecutive_duplicates_into_sublists (x:xs) = (x:first) : pack_consecutive_
 
 -- 1.10 (*) Run-length encoding of a list.
 run_encode_list :: Eq a => [a] -> [(a, Int)]
-run_encode_list [] = []
-run_encode_list (x:xs) = run_encode_list_helper xs x 1
-
-run_encode_list_helper :: Eq a => [a] -> a -> Int -> [(a, Int)]
-run_encode_list_helper [] x n = [(x, n)]
-run_encode_list_helper (x:xs) y n = if x == y then run_encode_list_helper xs x (n+1) else (y, n) : run_encode_list_helper xs x 1
+run_encode_list = map (\x -> (head x, length x)) . pack_consecutive_duplicates_into_sublists
 
 -- 1.11 (*) Modified run-length encoding (if an element has no duplicates it is simply copied into the result list)
 data ListItem a = Single a | Multiple Int a
@@ -100,3 +95,25 @@ decode_run_encoded_list (x:xs) =
     case x of
         Single y -> y : decode_run_encoded_list xs
         Multiple n y -> replicate n y ++ decode_run_encoded_list xs
+
+-- 1.13 (**) Run-length encoding of a list (direct solution).
+run_encode_list_dir :: Eq a => [a] -> [(a, Int)]
+run_encode_list_dir [] = []
+run_encode_list_dir (x:xs) = run_encode_list_helper xs x 1
+
+run_encode_list_helper :: Eq a => [a] -> a -> Int -> [(a, Int)]
+run_encode_list_helper [] x n = [(x, n)]
+run_encode_list_helper (x:xs) y n = if x == y then run_encode_list_helper xs x (n+1) else (y, n) : run_encode_list_helper xs x 1
+
+-- 1.14 (*) Duplicate the elements of a list.
+duplicate_elements :: [a] -> [a]
+duplicate_elements [] = []
+duplicate_elements [x] = [x, x]
+duplicate_elements (x:xs) = [x, x] ++ duplicate_elements xs
+
+-- 1.15 (**) Duplicate the elements of a list a given number of times.
+duplicate_elements_k :: [a] -> Int -> [a]
+duplicate_elements_k [] _ = []
+duplicate_elements_k (x:xs) k = replicate k x ++ duplicate_elements_k xs k
+
+-- 1.16 (**) Drop every N'th element from a list.
