@@ -1,3 +1,4 @@
+import System.IO.Unsafe
 import System.Random
 
 -- 1.01 (*) Find the last element of a list.
@@ -168,8 +169,18 @@ create_range a b
     | otherwise = a : create_range (a+1) b
     
 -- 1.23 (**) Extract a given number of randomly selected elements from a list.
-select_randomly :: [a] -> Int -> IO [a]
-select_randomly l@(x:xs) n
+select_randomly :: [a] -> Int -> [a]
+select_randomly l n
     | n <= 0 = []
-    | otherwise = (xs !! k) : select_randomly (fst (remove_kth l k)) (n-1)
-    where k = getStdRandom $ randomR (0, (length l) - 1)
+    | otherwise = (l !! k) : select_randomly (fst (remove_kth l (k+1))) (n-1)
+    where k = unsafePerformIO $ getStdRandom $ randomR (0, (length l) - 1)
+
+-- 1.24 (*) Lotto: Draw N different random numbers from the set 1..M.
+draw_n_random :: Int -> Int -> [Int]
+draw_n_random m n = select_randomly [1..m] n
+
+-- 1.25 (*) Generate a random permutation of the elements of a list.
+random_permutation :: [a] -> [a]
+random_permutation l = select_randomly l (length l)
+
+-- 1.26 (**) Generate the combinations of K distinct objects chosen from the N elements of a list
