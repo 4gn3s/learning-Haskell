@@ -1,3 +1,5 @@
+import System.Random
+
 -- 1.01 (*) Find the last element of a list.
 find_last_in_list :: [a] -> a
 find_last_in_list [] = error "no last in empty list"
@@ -117,3 +119,57 @@ duplicate_elements_k [] _ = []
 duplicate_elements_k (x:xs) k = replicate k x ++ duplicate_elements_k xs k
 
 -- 1.16 (**) Drop every N'th element from a list.
+drop_every_nth :: [a] -> Int -> [a]
+drop_every_nth [] _ = []
+drop_every_nth (x:xs) n = drop_helper (x:xs) n 1
+    where
+        drop_helper [] _ _ = []
+        drop_helper (x:xs) n k = if k == n then drop_helper xs n 1 else x : drop_helper xs n (k+1)
+
+-- 1.17 (*) Split a list into two parts; the length of the first part is given.
+split_list :: [a] -> Int -> ([a], [a])
+split_list [] _ = ([], [])
+split_list l@(x:xs) k
+    | k < 0 = split_list l (length l + k)
+    | k > 0 = (x:ys, zs)
+    | k == 0 = ([], l)
+    where (ys, zs) = split_list xs (k-1)
+
+-- 1.18 (**) Extract a slice from a list.
+slice_list :: [a] -> Int -> Int -> [a]
+slice_list [] _ _ = []
+slice_list (x:xs) i j = take (j-2) $ snd $ split_list (x:xs) (i-1)
+
+-- 1.19 (**) Rotate a list N places to the left.
+rotate_list_n :: [a] -> Int -> [a]
+rotate_list_n xs n = rest ++ first
+    where (first, rest) = split_list xs n
+    
+-- 1.20 (*) Remove the K'th element from a list.
+remove_kth :: [a] -> Int -> ([a], a)
+remove_kth l@(x:xs) k
+    | k < 0 = remove_kth l (length l + k)
+    | otherwise = case rest of
+         [] -> error "index too large"
+         x:back -> (front ++ back, x)
+         where (front, rest) = split_list l (k-1)
+
+-- 1.21 (*) Insert an element at a given position into a list.
+insert_at_k :: [a] -> Int -> a -> [a]
+insert_at_k [] _ x = [x]
+insert_at_k l@(x:xs) k y = front ++ [y] ++ back
+    where (front, back) = split_list l (k-1)
+    
+-- 1.22 (*) Create a list containing all integers within a given range.
+create_range :: Int -> Int -> [Int]
+create_range a b
+    | a > b = []
+    | a == b = [a]
+    | otherwise = a : create_range (a+1) b
+    
+-- 1.23 (**) Extract a given number of randomly selected elements from a list.
+select_randomly :: [a] -> Int -> IO [a]
+select_randomly l@(x:xs) n
+    | n <= 0 = []
+    | otherwise = (xs !! k) : select_randomly (fst (remove_kth l k)) (n-1)
+    where k = getStdRandom $ randomR (0, (length l) - 1)
