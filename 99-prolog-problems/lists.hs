@@ -1,5 +1,7 @@
 import System.IO.Unsafe
 import System.Random
+import Data.List
+import Data.Function
 
 -- 1.01 (*) Find the last element of a list.
 find_last_in_list :: [a] -> a
@@ -184,3 +186,25 @@ random_permutation :: [a] -> [a]
 random_permutation l = select_randomly l (length l)
 
 -- 1.26 (**) Generate the combinations of K distinct objects chosen from the N elements of a list
+combinations :: [a] -> Int -> [[a]]
+combinations [] _  = []
+combinations l 1 = map (\x -> [x]) l
+combinations l@(x:xs) k = map ((\l -> x:l)) (combinations xs (k-1)) ++ (combinations xs k)
+
+-- 1.27 (**) Group the elements of a set into disjoint subsets.
+group_into_3_disjoint_subsets :: Eq a => [a] -> Int -> Int -> Int -> [[[a]]]
+group_into_3_disjoint_subsets l a b c = [[c1, c2, (l \\ c1) \\ c2] | c1 <- combinations l a, c2 <- combinations (l \\ c1) b]
+
+group_into_disjoint_subsets :: Eq a => [a] -> [Int] -> [[[a]]]
+group_into_disjoint_subsets l [] = [[]]
+group_into_disjoint_subsets l@(x:xs) (n:ns) = [c:cg | c <- combinations l n, cg <- group_into_disjoint_subsets (l \\ c) ns]
+
+-- 1.28 (**) Sorting a list of lists according to length of sublists
+sort_lists_len_sublists :: [[a]] -> [[a]]
+sort_lists_len_sublists = sortBy (compare `on` length)
+
+frequency :: Int -> [[a]] -> Int
+frequency len l = length (filter (\x -> length x == len) l)
+
+-- sort_lists_len_frequency :: [[a]] -> [[a]]
+-- sort_lists_len_frequency l = sortBy (\xs ys -> compare (frequency (length xs) l) (frequency (length ys) l))
